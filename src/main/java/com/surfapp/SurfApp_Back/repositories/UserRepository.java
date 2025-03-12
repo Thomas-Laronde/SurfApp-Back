@@ -1,4 +1,4 @@
-package com.surfapp.SurfApp_Back.Repositories;
+package com.surfapp.SurfApp_Back.repositories;
 
 import java.util.Optional;
 

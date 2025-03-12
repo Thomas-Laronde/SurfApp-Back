@@ -1,6 +1,6 @@
 package com.surfapp.SurfApp_Back.controller;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.surfapp.SurfApp_Back.models.User;
 import com.surfapp.SurfApp_Back.services.UserService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,9 +50,22 @@ public class UserController {
    }
 
     // Supprimer un nouvel utilisateur
+   @DeleteMapping("path/{id}")
+   public User deleteUser(@PathVariable Long id) {
 
+       User existingUser = userService.getUserById(id)
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+
+       userService.deleteUser(id);
+       return existingUser;
+   }
+   
 
     // Avoir tout les utilisateurs
-
+   @GetMapping("/users")
+   public List<User> getAllUsers() {
+        List<User> allUsers = userService.getAllUsers();
+    return allUsers;
+   }
 
 }
